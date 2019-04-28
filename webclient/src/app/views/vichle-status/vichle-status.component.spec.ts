@@ -40,7 +40,6 @@ describe('VichleStatusComponent', () => {
   it('should get status', () => {
     spyOnstatusesService();
     component.getStatuses();
-    console.log(component.vichles);
     expect(component.vichles).toBeTruthy();
   });
 
