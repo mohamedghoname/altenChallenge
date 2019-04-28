@@ -17,30 +17,50 @@ pgClient
   .catch(err => log(err));
 
 initializeData();
-
+CleanContactsRecords();
 async function getAll()
 {
   
   const values = await pgClient
-    .query('SELECT DISTINCT * from Customers')
+    .query('SELECT * from Customers where id<4')
     .catch(err => log(err));
   
   return values.rows;
 }
 
+async function CleanContactsRecords()
+{
+  
+  const values = await pgClient
+    .query('Delete from Customers where id>3')
+    .catch(err => log(err));
+  
+  return values;
+}
+
 async function initializeData()
 {
-  await pgClient
-    .query('INSERT INTO Customers(Name,Address) VALUES($1,$2)', ["Kalles Grustransporter AB","Cementvägen 8, 111 11 Södertälje"])
-    .catch(err => log(err));
 
-  await pgClient
-    .query('INSERT INTO Customers(Name,Address) VALUES($1,$2)', ["Johans Bulk AB","Balkvägen 12, 222 22 Stockholm"])
-    .catch(err => log(err));
+  pgClient.query("select Id from Customers limit 1")
+  .then(result=>{      
+    
+      if(!result.rowCount)
+      {       
+        await pgClient
+        .query('INSERT INTO Customers(Name,Address) VALUES($1,$2)', ["Kalles Grustransporter AB","Cementvägen 8, 111 11 Södertälje"])
+        .catch(err => log(err));
 
-  await pgClient
-    .query('INSERT INTO Customers(Name,Address) VALUES($1,$2)', ["Haralds Värdetransporter AB","Budgetvägen 1, 333 33 Uppsala"])
-    .catch(err => log(err));
+      await pgClient
+        .query('INSERT INTO Customers(Name,Address) VALUES($1,$2)', ["Johans Bulk AB","Balkvägen 12, 222 22 Stockholm"])
+        .catch(err => log(err));
+
+      await pgClient
+        .query('INSERT INTO Customers(Name,Address) VALUES($1,$2)', ["Haralds Värdetransporter AB","Budgetvägen 1, 333 33 Uppsala"])
+        .catch(err => log(err));
+      }
+  })
+  .catch(err => log(err));
+
 }
 
 module.exports={getAll,initializeData};
