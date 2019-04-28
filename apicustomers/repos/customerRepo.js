@@ -17,25 +17,15 @@ pgClient
   .catch(err => log(err));
 
 initializeData();
-CleanContactsRecords();
+
 async function getAll()
 {
   
   const values = await pgClient
-    .query('SELECT * from Customers where id<4')
+    .query('SELECT * from Customers')
     .catch(err => log(err));
   
   return values.rows;
-}
-
-async function CleanContactsRecords()
-{
-  
-  const values = await pgClient
-    .query('Delete from Customers where id>3')
-    .catch(err => log(err));
-  
-  return values;
 }
 
 async function initializeData()
