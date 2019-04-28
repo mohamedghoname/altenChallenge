@@ -1,0 +1,83 @@
+version: '3'
+services: 
+  customersdb:
+    image: "postgres:latest"
+
+  vichlesdb:
+    image: "postgres:latest"
+
+  redis:
+    image: "redis:latest"
+    
+  customerapi:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./apicustomers
+    volumes: 
+      - /app/node_modules
+      - ./apicustomers:/app
+    ports:
+      - '5000:5000'
+    environment: 
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGCUSTOMERSUSER=postgres
+      - PGCUSTOMERSHOST=customersdb
+      - PGCUSTOMERSDATABASE=postgres
+      - PGCUSTOMERSPASSWORD=postgres_password
+      - PGCUSTOMERSPORT=5432
+
+  vichlesstatusapi:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./apistatus
+    volumes: 
+      - /app/node_modules
+      - ./apistatus:/app
+    ports:
+      - '7000:7000'
+    environment: 
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGVICHLESUSER=postgres
+      - PGVICHLESHOST=vichlesdb
+      - PGVICHLESDATABASE=postgres
+      - PGVICHLESPASSWORD=postgres_password
+      - PGVICHLESPORT=5432
+
+  vichlespingapi:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./apiping
+    volumes: 
+      - /app/node_modules
+      - ./apiping:/app
+    ports:
+      - '8000:8000'
+    environment: 
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGVICHLESUSER=postgres
+      - PGVICHLESHOST=vichlesdb
+      - PGVICHLESDATABASE=postgres
+      - PGVICHLESPASSWORD=postgres_password
+      - PGVICHLESPORT=5432
+
+  webclient:
+    build: 
+      dockerfile: Dockerfile
+      context: ./webclient
+    volumes: 
+      - /app/node_modules
+      - ./webclient:/app
+    ports:
+      - '4200:4200'
+
+  webgate:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./webgate
+    ports:
+      - '8080:80'
+  

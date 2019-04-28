@@ -1,0 +1,44 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [{
+			"name": "webclient",
+			"image": "mohamedghoname/altenwebclient",
+			"hostname": "webclient",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "customerapi",
+			"image": "mohamedghoname/altenapicustomers",
+			"hostname": "customerapi",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "vichlespingapi",
+			"image": "mohamedghoname/altenapiping",
+			"hostname": "vichlespingapi",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "vichlesstatusapi",
+			"image": "mohamedghoname/altenapistatus",
+			"hostname": "vichlesstatusapi",
+			"essential": false,
+			"memory": 128
+		},
+		{
+			"name": "webgate",
+			"image": "mohamedghoname/altenwebgate",
+			"hostname": "webgate",
+			"essential": true,
+			"portMappings": [{
+				"hostPort": 80,
+				"containerPort": 80
+			}],
+			"links": ["webclient", "customerapi", "vichlesstatusapi", "vichlespingapi"],
+			"memory": 128
+		}
+	]
+}

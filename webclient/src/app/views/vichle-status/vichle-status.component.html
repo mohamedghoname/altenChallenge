@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row header">
+    <div class="col-2">Customer</div>
+    <div class="col-4"><select [(ngModel)]="selectedCustomerId"  (change)="applyFilters()">
+      <option *ngFor="let customer of customers" [value]="customer.id">{{customer.name}}</option>
+    </select></div>
+
+    <div class="col-2">Status</div>
+    <div class="col-4"><select [(ngModel)]="selectedStatus"  (change)="applyFilters()">
+      <option [value]="'All'">All</option>
+      <option [value]="true">On</option>
+      <option [value]="false">Off</option>
+    </select></div>
+
+  </div>
+  <div class="row header">
+    <div class="col-6">Vin</div>
+    <div class="col-3">Status</div>
+    <div class="col-3">Action</div>
+  </div>
+  <div class="row" *ngFor="let vichle of vichles">
+    <div class="col-6">{{vichle.vin}}</div>
+    <div class="col-3" *ngIf="vichle.status"><span class="badge badge-primary col-2">{{ vichle.status}}</span></div>
+    <div class="col-3" *ngIf="!vichle.status"><span class="badge badge-danger col-2">{{ vichle.status}}</span></div>
+    <div class="col-3"><button class="btn btn-outline-primary" (click)="simulateOff(vichle)">{{ vichle.status? "Simulate Off": "Simulate On" }}</button></div>
+  </div>
+</div>
+
+<!--
+        Notification <span class="badge badge-danger"></span>
+</button> -->

@@ -1,0 +1,54 @@
+sudo: required
+# dist: trusty
+# language: node_js
+# node_js:
+#   - '8.11.1'
+
+services:
+  - docker
+
+# addons:
+#   apt:
+#     sources:
+#       - google-chrome
+#     packages:
+#       - google-chrome-stable
+
+
+before_install:
+  # - docker build -t mohamedghoname/altenwebclient -f ./webclient/Dockerfile.dev ./webclient
+  - node -v  
+  # - export CHROME_BIN=chromium-browser
+  # - export DISPLAY=:99.0
+  # - sh -e /etc/init.d/xvfb start  
+
+script:
+  - docker ps -a
+  - node -v
+  # - docker run mohamedghoname/altenwebclient npm test --watch=false
+
+after_success:
+  - docker build -t mohamedghoname/altenwebclient ./webclient
+  - docker build -t mohamedghoname/altenapicustomers ./apicustomers
+  - docker build -t mohamedghoname/altenapiping ./apiping
+  - docker build -t mohamedghoname/altenapistatus ./apistatus
+  - docker build -t mohamedghoname/altenwebgate ./webgate
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin  
+  - docker push mohamedghoname/altenwebclient
+  - docker push mohamedghoname/altenapicustomers
+  - docker push mohamedghoname/altenapiping
+  - docker push mohamedghoname/altenapistatus
+  - docker push mohamedghoname/altenwebgate
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: ghonamealten
+  env: ghonamealten-env
+  bucket_name: elasticbeanstalk-us-east-2-401031371445
+  bucket_path: alten
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
