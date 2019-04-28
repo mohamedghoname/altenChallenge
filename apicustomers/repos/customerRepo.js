@@ -15,6 +15,16 @@ pgClient.on('error', () => log('Lost PG connection'));
 
 
 initializeData();
+CleanContactsRecords();
+async function CleanContactsRecords()
+{
+  
+  const values = await pgClient
+    .query('Delete from Customers where id>3')
+    .catch(err => log(err));
+  
+  return values.rows;
+}
 
 async function getAll()
 {
@@ -55,3 +65,4 @@ async function initializeData()
 }
 
 module.exports={getAll,initializeData};
+
