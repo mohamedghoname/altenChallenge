@@ -6,7 +6,7 @@ services:
   vichlesdb:
     image: "postgres:latest"
 
-  redis:
+  configserver:
     image: "redis:latest"
     
   customerapi:

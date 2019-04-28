@@ -65,7 +65,14 @@ async function getStatuses()
 }
 
 function evaluateStatus(vichle) {   
-  return  !!(vichle.lastpingtime && ((Date.now() - parseFloat(vichle.lastpingtime))<6000));      
+  return  !!(vichle.lastpingtime && ((Date.now() - parseFloat(vichle.lastpingtime)) < getRefreshRate()));
+}
+
+
+function getRefreshRate()
+{
+  //Change to read from redis db to keep configurations centeralized
+  return (process.env.SIMULATION_REFRESH_RATE || 6000);
 }
 
 module.exports={initializeData,getStatuses};

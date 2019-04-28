@@ -14,18 +14,24 @@ pgClient.on('error', () => log(new Error('Lost PG connection')));
 
 setRandomStatus();
 initializeData();
-async function setRandomStatus(params) {  
-  setInterval(async () => {
+
+function setRandomStatus() {
+  setTimeout(async ()=> {
     
     var result=await pgClient.query("SELECT vin FROM vichles").catch(err=>{log(err)});
     result.rows.forEach(vichle => {
       if(Math.random() >= 0.5)
         ping(vichle.vin);      
     });
-  }, 6000);
-
+    setRandomStatus();
+  },getRefreshRate());
 }
 
+function getRefreshRate()
+{
+  //Change to read from redis db to keep configurations centeralized
+  return (process.env.SIMULATION_REFRESH_RATE || 6000);
+}
 
 
 async function initializeData()

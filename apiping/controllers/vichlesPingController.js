@@ -1,3 +1,4 @@
+const log=require("../logger");
 const vichlePingRepo=require("../repos/vichlePingRepo");
 
 
@@ -11,7 +12,7 @@ async function ping(req, res) {
     if(!req.body || !req.body.vin) res.statuses(400);
 
     const vin= req.body.vin;
-    await vichlePingRepo.ping(vin).catch(err=>{console.log(err);});
+    await vichlePingRepo.ping(vin).catch(err=>{log(err);});
 
     res.sendStatus(200);
 };
