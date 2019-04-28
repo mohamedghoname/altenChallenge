@@ -44,7 +44,6 @@ services:
       - PGVICHLESDATABASE=postgres
       - PGVICHLESPASSWORD=postgres_password
       - PGVICHLESPORT=5432
-
   vichlespingapi:
     build: 
       dockerfile: Dockerfile.dev
