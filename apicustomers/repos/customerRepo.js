@@ -22,7 +22,7 @@ async function getAll()
 {
   
   const values = await pgClient
-    .query('SELECT * from Customers')
+    .query('SELECT DISTINCT * from Customers')
     .catch(err => log(err));
   
   return values.rows;
