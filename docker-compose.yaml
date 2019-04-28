@@ -44,6 +44,7 @@ services:
       - PGVICHLESDATABASE=postgres
       - PGVICHLESPASSWORD=postgres_password
       - PGVICHLESPORT=5432
+      - SIMULATION_REFRESH_RATE=6000
   vichlespingapi:
     build: 
       dockerfile: Dockerfile.dev
@@ -61,6 +62,7 @@ services:
       - PGVICHLESDATABASE=postgres
       - PGVICHLESPASSWORD=postgres_password
       - PGVICHLESPORT=5432
+      - SIMULATION_REFRESH_RATE=6000
 
   webclient:
     build: 

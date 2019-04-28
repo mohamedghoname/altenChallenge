@@ -30,7 +30,7 @@ function setRandomStatus() {
 function getRefreshRate()
 {
   //Change to read from redis db to keep configurations centeralized
-  return (process.env.SIMULATION_REFRESH_RATE || 6000);
+  return (+process.env.SIMULATION_REFRESH_RATE || 6000);
 }
 
 
