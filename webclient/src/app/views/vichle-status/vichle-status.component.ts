@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { VichlesStatusesService } from 'src/app/services/vichles-statuses.service';
 import { PingService } from 'src/app/services/ping.service';
 import { CustomersService } from 'src/app/services/customers.service';
-
-
+import {VichleStatus} from './../../models/vichle_status.model';
+import { Customer } from './../../models/customer.model';
 @Component({
   selector: 'app-vichle-status',
   templateUrl: './vichle-status.component.html',
@@ -45,7 +45,7 @@ export class VichleStatusComponent implements OnInit {
   public simulateOff(vichle: VichleStatus ) {
 
     if (vichle.status) {
-      this.pingService.simulateOff(vichle.vin).subscribe(Response => {this.getStatuses() } , (err) => {console.log(err);});
+      this.pingService.simulateOff(vichle.vin).subscribe(Response => {this.getStatuses(); } , (err) => {console.log(err);});
     } else {
       this.pingService.ping(vichle.vin).subscribe(Response => {this.getStatuses(); } , (err) => {console.log(err); });
     }
