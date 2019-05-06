@@ -12,7 +12,7 @@ script:
   - docker ps -a   
 
 after_success:
-  # - docker build -t mohamedghoname/altenwebclient ./webclient
+  - docker build -t mohamedghoname/altenwebclient ./webclient
   - docker build -t mohamedghoname/altenapicustomers ./apicustomers
   - docker build -t mohamedghoname/altenapiping ./apiping
   - docker build -t mohamedghoname/altenapistatus ./apistatus
