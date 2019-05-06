@@ -4,8 +4,8 @@ services:
   - docker
 
 before_install:
-  - docker build -f ./apicustomers/Dockerfile.dev -t mohamedghoname/altenapicustomersDev ./apicustomers
-  - docker run mohamedghoname/altenapicustomersDev npm test
+  - docker build -f ./apicustomers/Dockerfile.dev -t mohamedghoname/altenapicustomersdev ./apicustomers
+  - docker run mohamedghoname/altenapicustomersdev npm test
 
 
 script:
