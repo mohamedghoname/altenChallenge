@@ -6,6 +6,8 @@ services:
 before_install:
   - docker build -f ./apicustomers/Dockerfile.dev -t mohamedghoname/altenapicustomersdev ./apicustomers
   - docker run mohamedghoname/altenapicustomersdev npm test
+  - docker build ./apiping/Dockerfile.dev -t mohamedghoname/altenapipingdev ./apiping
+  - docker run mohamedghoname/altenapipingdev npm test
 
 
 script:
