@@ -76,6 +76,28 @@ async function simulateOFF(vin)
 }
 
 
+async function getStatuses()
+{        
+    var vichles=await pgClient
+      .query(`Select vin, lastpingtime, customerid from vichles`)      
+      .catch(err => log(err));
+
+    if(!vichles.rows) return [];
+    const rows=[];
+    
+    
+    await vichles.rows.forEach(vichle => 
+      rows.push({vin:vichle.vin, status:evaluateStatus(vichle),customerId:vichle.customerid})
+      );    
+      console.log(rows);
+      
+    return rows;
+}
+
+function evaluateStatus(vichle) {   
+  return  !!(vichle.lastpingtime && ((Date.now() - parseFloat(vichle.lastpingtime)) < getRefreshRate()));
+}
 
 
-module.exports={ping,initializeData,simulateOFF};
+
+module.exports={ping,initializeData,simulateOFF,getStatuses};

@@ -24,10 +24,13 @@ async function simulateOFF(req, res) {
     const vin= req.body.vin;
     await vichlePingRepo.simulateOFF(vin);
     res.sendStatus(200);
-
-
-
 };
+
+async function getStatuses(req, res) {
+    let statuses;
+    await vichlePingRepo.getStatuses().then(statuses=>{res.send(statuses);res.sendStatus(200);}).catch(err=>{log(err);res.sendStatus(500);});
+    
+}
 
 async function initializeData(req, res) {
 
@@ -35,4 +38,4 @@ async function initializeData(req, res) {
     res.send("initializing Data...");
 };
 
-module.exports={ping,initializeData,simulateOFF};
+module.exports={ping,initializeData,simulateOFF,getStatuses};
