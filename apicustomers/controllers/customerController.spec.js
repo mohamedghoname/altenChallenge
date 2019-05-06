@@ -30,7 +30,7 @@ describe("customer Controller",()=>{
         it("Should throw exception",async ()=>{                
             CustomerRepo.getAll=jest.fn().mockRejectedValue(new Error('Fake error'));
             await controller.getAllCustomers(null,res);            
-            expect(res.statusResult).toBe(400);
+            expect(res.statusResult).toBe(500);
 
         });
     })
