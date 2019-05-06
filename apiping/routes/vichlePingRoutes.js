@@ -2,7 +2,7 @@ const express = require('express');
 const log = require('../logger');
 const router = express.Router();
 const vichlesPingController=require("../controllers/vichlesPingController")
-
+ 
 
 router.use((req, res, next) =>{ next(); });
 
