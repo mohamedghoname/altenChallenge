@@ -25,7 +25,7 @@ export class VichleStatusComponent implements OnInit {
     this.getStatuses();
     setInterval(() => {
       this.getStatuses();
-    }, 6000);
+    }, 60000);
 
     this.customersService.getCustomers().subscribe(customers => {
       this.customers = [{id: 0, name: 'All'}, ... customers as unknown as Customer[]];

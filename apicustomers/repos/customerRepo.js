@@ -17,12 +17,11 @@ pgClient.on('error', () => log('Lost PG connection'));
 initializeData();
 
 async function getAll()
-{
-  
+{        
   const values = await pgClient
     .query('SELECT * from Customers')
     .catch(err => log(err));
-  
+    
   return values.rows;
 }
 

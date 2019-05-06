@@ -2,7 +2,9 @@ const log=require("../logger")
 const CustomerRepo=require("../repos/customerRepo");
 
 async function getAllCustomers(req, res) {
-    const allCustomers=await CustomerRepo.getAll().catch(err=>{log(err);
+    const allCustomers=await CustomerRepo.getAll().catch(err=>{
+        console.log(err);
+        res.sendStatus(500);        
     });
     res.send(allCustomers);
 };

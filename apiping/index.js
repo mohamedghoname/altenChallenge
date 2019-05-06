@@ -10,6 +10,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(require("./routes/vichlePingRoutes"));
 
-app.listen(8000, err => {  
+let server=app.listen(8000, err => {  
   log('Listening to 8000');
 });
+
+module.exports=server;

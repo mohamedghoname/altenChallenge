@@ -60,6 +60,7 @@ async function getStatuses()
     await vichles.rows.forEach(vichle => 
       rows.push({vin:vichle.vin, status:evaluateStatus(vichle),customerId:vichle.customerid})
       );    
+      console.log(rows);
       
     return rows;
 }
@@ -72,7 +73,7 @@ function evaluateStatus(vichle) {
 function getRefreshRate()
 {
   //Change to read from redis db to keep configurations centeralized
-  return (+process.env.SIMULATION_REFRESH_RATE || 6000);
+  return (+process.env.SIMULATION_REFRESH_RATE || 60000);
 }
 
 module.exports={initializeData,getStatuses};

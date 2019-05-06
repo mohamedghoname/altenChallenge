@@ -30,7 +30,7 @@ function setRandomStatus() {
 function getRefreshRate()
 {
   //Change to read from redis db to keep configurations centeralized
-  return (+process.env.SIMULATION_REFRESH_RATE || 6000);
+  return (+process.env.SIMULATION_REFRESH_RATE || 60000);
 }
 
 
@@ -63,9 +63,11 @@ async function initializeData()
 }
 
 async function ping(vin)
-{                      
-    await pgClient.query(`UPDATE vichles SET lastpingtime='${Date.now()}' WHERE vin=('${vin}')`)      
+{
+    let pingTime=Date.now();
+    await pgClient.query(`UPDATE vichles SET lastpingtime='${pingTime}' WHERE vin=('${vin}')`)      
       .catch(err => log(err));    
+      console.log("P I N G  T I M E",pingTime, vin);      
 }
 
 async function simulateOFF(vin)

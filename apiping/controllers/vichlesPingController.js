@@ -1,28 +1,32 @@
 const log=require("../logger");
 const vichlePingRepo=require("../repos/vichlePingRepo");
 
-
-async function getStatuses(req, res) {
-    var statuses= await vichlePingRepo.getStatuses();
-
-    res.send(statuses);
-}
-
 async function ping(req, res) {
-    if(!req.body || !req.body.vin) res.statuses(400);
-
-    const vin= req.body.vin;
-    await vichlePingRepo.ping(vin).catch(err=>{log(err);});
-
-    res.sendStatus(200);
+    if( !req.body || !req.body.vin) {        
+        res.sendStatus(400);        
+    }
+    else
+    {
+        const vin= req.body.vin;
+        await vichlePingRepo.ping(vin).then(()=>{res.sendStatus(200);}).catch(err=>{console.log(err);res.sendStatus(500);});
+        
+    }
 };
 
 async function simulateOFF(req, res) {
-    if(!req.body || !req.body.vin) res.statuses(400);
+
+    if(!req.body || !req.body.vin) 
+    {
+        res.sendStatus(400);
+        return this;
+    }
 
     const vin= req.body.vin;
     await vichlePingRepo.simulateOFF(vin);
     res.sendStatus(200);
+
+
+
 };
 
 async function initializeData(req, res) {
