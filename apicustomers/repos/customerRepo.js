@@ -1,13 +1,13 @@
-const keys = require('../keys');
+// const keys = require('../keys');
 const { Pool } = require('pg');
 const log=require("../logger");
 
 const pgClient = new Pool({
-  user: keys.pgCustomersUser,
-  host: keys.pgCustomersHost,
-  database: keys.pgCustomersDatabase,
-  password: keys.pgCustomersPassword,
-  port: keys.pgCustomersPort
+  user: process.env.PGCUSTOMERSUSER,
+  host: process.env.PGCUSTOMERSHOST,
+  database: process.env.PGCUSTOMERSDATABASE,
+  password: process.env.PGCUSTOMERSPASSWORD,
+  port: process.env.PGCUSTOMERSPORT
 });
 
 pgClient.on('error', () => log('Lost PG connection'));

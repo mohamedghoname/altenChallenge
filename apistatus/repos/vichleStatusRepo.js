@@ -3,11 +3,11 @@ const { Pool } = require('pg');
 const log=require("../logger");
 
 const pgClient = new Pool({
-  user: keys.pgVichlesUser,
-  host: keys.pgVichlesHost,
-  database: keys.pgVichlesDatabase,
-  password: keys.pgVichlesPassword,
-  port: keys.pgVichlesPort
+  user: process.env.PGVICHLESUSER,
+  host: process.env.PGVICHLESHOST,
+  database: process.env.PGVICHLESDATABASE,
+  password: process.env.PGVICHLESPASSWORD,
+  port: process.env.PGVICHLESPORT
 });
 pgClient.on('error', () => log(new Error('Lost PG connection')));
 
