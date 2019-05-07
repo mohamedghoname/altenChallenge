@@ -4,7 +4,7 @@ import { PingService } from './ping.service';
 import { ServiceRoutes } from './servecisRoutes';
 
 
-describe('PingService', () => {
+describe('PingService Ping', () => {
   let service: PingService;
   let httpMock: HttpTestingController;
 
@@ -20,8 +20,8 @@ describe('PingService', () => {
   it('Should accept a valid VIN', () => {
 
 
-    service.ping('1234').subscribe(( s ) => {
-      expect(s).toBe('200');
+    service.ping('1234').subscribe(( response ) => {
+      expect(response).toBe('200');
 
     });
 
@@ -45,7 +45,7 @@ describe('PingService', () => {
 });
 
 
-describe('Simulate OFF', () => {
+describe('PingService Simulate off', () => {
   let service: PingService;
   let httpMock: HttpTestingController;
 
@@ -61,8 +61,8 @@ describe('Simulate OFF', () => {
   it('Should accept a valid VIN', () => {
 
 
-    service.simulateOff('1234').subscribe(( s ) => {
-      expect(s).toBe('200');
+    service.ping('1234').subscribe(( response ) => {
+      expect(response).toBe('200');
 
     });
 
@@ -72,13 +72,9 @@ describe('Simulate OFF', () => {
 
   });
 
-  afterEach(() => {
-    httpMock.verify();
-  });
-
   it('Should reject invalid VIN', () => {
 
-    service.simulateOff('456').subscribe(( s ) => {
+    service.ping('456').subscribe(( s ) => {
       expect(s).toBe('400');
     });
 
@@ -88,3 +84,4 @@ describe('Simulate OFF', () => {
 
   });
 });
+

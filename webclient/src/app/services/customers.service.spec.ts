@@ -8,8 +8,7 @@ import { Customer } from './../models/customer.model';
 
 
 describe('CustomersService', () => {
-  let service: CustomersService
-;
+  let service: CustomersService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {TestBed.configureTestingModule({
@@ -17,8 +16,7 @@ describe('CustomersService', () => {
     providers: [CustomersService
   ]
   });
-                    service = TestBed.get(CustomersService
-                    );
+                    service = TestBed.get(CustomersService);
                     httpMock = TestBed.get(HttpTestingController);
 
 });
@@ -27,7 +25,7 @@ describe('CustomersService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it('should return customers data', () => {
     const dummyCustomers: Customer[] = CustomersData.Get_Customers ;
 
     service.getCustomers().subscribe((Customers) => {
