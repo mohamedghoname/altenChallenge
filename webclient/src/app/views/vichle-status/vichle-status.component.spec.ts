@@ -106,6 +106,4 @@ describe('VichleStatusComponent', () => {
     expect(component.vichles).toBeTruthy();
   });
 
-
-
 });
