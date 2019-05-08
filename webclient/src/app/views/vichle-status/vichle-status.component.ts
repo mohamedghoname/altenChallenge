@@ -17,19 +17,21 @@ export class VichleStatusComponent implements OnInit {
 
   public vichles: VichleStatus[];
   vichlesResultSet: VichleStatus[];
-  public customers: Customer[];
+  customers: Customer[];
   public selectedCustomerId = '0';
   public selectedStatus = 'All';
 
   ngOnInit() {
-    this.getStatuses();
+
     setInterval(() => {
       this.getStatuses();
-    }, 60000);
+    }, 6000);
 
     this.customersService.getCustomers().subscribe(customers => {
       this.customers = [{id: 0, name: 'All'}, ... customers as unknown as Customer[]];
     });
+
+    this.getStatuses();
   }
 
   applyFilters() {
@@ -53,9 +55,12 @@ export class VichleStatusComponent implements OnInit {
   }
   getStatuses() {
     this.statusesService.getVichleStatuses().subscribe(result => {
+      console.log("Result",result);
+
       this.vichlesResultSet = result as unknown as VichleStatus[];
       this.vichlesResultSet = this.vichlesResultSet.sort(this.compare);
       this.applyFilters();
+      console.log(this.vichles);
     }, err => {console.log(err);
     });
   }
