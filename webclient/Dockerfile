@@ -4,7 +4,7 @@ COPY ./package.json .
 RUN npm install --silent
 COPY . .
 RUN npm install node-sass
-RUN npm run build
+RUN npm run build --prod=true --outputHashing=all
 
 FROM nginx
 EXPOSE 4200
